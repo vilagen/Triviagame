@@ -8,16 +8,8 @@
 </head>
 <body>
 
-    <h1>Placeholder for questions</h1>
+<div id = questions></div>
 
-    <h2>What year was Nintendo founded?</h2>
-    <ul id = "year">
-        <li>1889</li>
-        <li>1911</li>
-        <li>1968</li>
-        <li>1978</li>
-    </ul>
-    
 </body>
 
 <script src="text/javascript">
@@ -59,8 +51,87 @@
 // Mario Jumpman(Y) Hammer Brother, Plumber 
 
 
+// Need to create a function to pull questions and answers.
 
-questionarray = []
+function createQuestions(Question, Answer, CorrectAnswer){
+    newChallenge = $("<div>")
+    newChallenge.addClass("mb-4")
+    newQuestion = $("<div")
+    newQuestion.addClass("h2 mb-4")
+    newQuestion.appendTo(newChallenge)
+
+    
+}
+
+var array = {
+    Question1: {
+        Question: "What Year was Nintendo founded?",
+            Answers: {
+                Ans0: '1889',
+                Ans1: '1910',
+                Ans2: '1951',
+                Ans3: '1968',
+        },
+    CorrectAnswer: 0
+    },
+
+    Question2: {
+        Question: "What was the first product Nintendo made?",
+        Answers: {
+            Ans0: 'Nintendo Entertainment System',
+            Ans1: 'Ultra Hand',
+            Ans2: 'Playing Cards',
+            Ans3: 'Love Tester'
+        },
+    CorrectAnswer: 2
+
+    },
+
+    Question3: {
+        Question: "What does Nintendo translate to?",
+        Answers: {
+            Ans0: 'Seize the New Day',
+            Ans1: 'A Vision with Action',
+            Ans2: 'Mirror of the Soul',
+            Ans3: 'Leave Luck to the Heavens',
+        },
+    CorrectAnswer: 3
+    },
+
+    Question4: {
+        Question: "What was Nintendo's first portable console known as?",
+        Answers: {
+            Ans0: 'Gameboy',
+            Ans1: 'Gamegear',
+            Ans2: 'Game and Watch',
+            Ans3: 'Famicon',
+        },
+    CorrectAnswer: 2
+    },
+
+    Question5: {
+        Question: "What series did Miyamoto not direactly create?",
+        Answers: {
+            Ans0: 'Donkey Kong',
+            Ans1: 'Pokemon',
+            Ans2: 'Mario',
+            Ans3: 'Pikmin',
+        },
+    CorrectAnswer: 1
+    },
+
+    Question6: {
+        Question: "Counting all iterations, including the Gameboy Color, when did production of the Game Boy end?",
+        Answers: {
+            Ans0: '1999',
+            Ans1: '2003',
+            Ans2: '2000',
+            Ans3: '1998',
+        },
+    CorrectAnswer: 1
+    },
+    
+}
 
 </script>
 </html>
