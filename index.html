@@ -193,14 +193,29 @@ let listy = $("<div>")
     $(ans3).appendTo($(listy))
 
     $("#questions").append(listy)
+
+    $(document).on("click", "button.listofAnswers", function() {
+    answerVal = parseInt($(this).attr('type'))
+    console.log(answerVal)
+    console.log(array.Question1.CorrectAnswer)
+    if (answerVal === array.Question1.CorrectAnswer) {
+        alert("correct")
+    }
+
+    else {
+        alert("wrong")
+    }
     
+    })
 })
 
-$(document).on("click", "div.listofAnswers", function() {
-        alert("test")
-        let selectedChoice = $(this).attr('type')
-        console.log("this")
-})
+
+
+        
+
+    // Need to find a way to allow user to try to click for an answer.
+
+
 
 
 </script>
