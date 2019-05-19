@@ -14,6 +14,8 @@
 <button type = "button" id = "test" class = "btn btn-primary">Test</button>
 <div id = "timer"></div>
 <div id = "questions"></div>
+<div id = "correct"></div>
+<div id = "answers"></div>
 
 
 </div>
@@ -23,47 +25,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 
-// What Year was Nintendo founded?
-// 1889
-
-// What did Nintendo originally make?
-// Playing Cards (game of Hanafuda)
-
-// What does Nintendo translate to?
-// Leave Luck to the Heavens
-
-// What was Nintendo's first portable console known as?
-// Game & Watch(Y)
-
-// What series did Miyamoto not direactly create?
-// Zelda? Mario? Pokemon(Y) Pikman?
-
-// The first Zelda was not originally visioned as purely a fanatasy game. What was the original concept?
-// A time travel game
-
-// Counting all iterations, including the Gameboy Color, when did production of the Game Boy end?
-// 2003
-
-// What was the first game that Miyamoto directed?
-// Donkey Kong
-
-// Who was the female that Donkey Kong kidnapped in the original Donkey Kong?
-// Pauline
-
-// What was the cancelled console that Nintendo and Sony collaborated on?
-// SNES-CD
-
-// What franchise is believed to have been inspired by Alien?
-// Metroid
-
-// What was Mario's original name when he debuted in Donkey Kong?
-// Mario Jumpman(Y) Hammer Brother, Plumber 
-
-
 // Need to create a function to pull questions and answers.
 
-var array = {
-    Question1: {
+var questionValues = {
+    Q1: {
         Question: "What Year was Nintendo founded?",
         Answers: {
             Ans0: '1889',
@@ -71,10 +36,11 @@ var array = {
             Ans2: '1951',
             Ans3: '1968',
             },
-        CorrectAnswer: 0
+        CorrectAnswer: 0,
+        RevealAns: "Nintendo was founded in 1889."
     },
 
-    Question2: {
+    Q2: {
         Question: "What was the first product Nintendo made?",
         Answers: {
             Ans0: 'Nintendo Entertainment System',
@@ -85,7 +51,7 @@ var array = {
         CorrectAnswer: 2
     },
 
-    Question3: {
+    Q3: {
         Question: "What does Nintendo translate to?",
         Answers: {
             Ans0: 'Seize the New Day',
@@ -96,7 +62,7 @@ var array = {
         CorrectAnswer: 3
     },
 
-    Question4: {
+    Q4: {
         Question: "What was Nintendo's first portable console known as?",
         Answers: {
             Ans0: 'Gameboy',
@@ -107,7 +73,7 @@ var array = {
         CorrectAnswer: 2
     },
 
-    Question5: {
+    Q5: {
         Question: "What series did Miyamoto not direactly create?",
         Answers: {
             Ans0: 'Donkey Kong',
@@ -118,7 +84,7 @@ var array = {
     CorrectAnswer: 1
     },
 
-    Question6: {
+    Q6: {
         Question: "Counting all iterations, including the Gameboy Color, when did production of the Game Boy end?",
         Answers: {
             Ans0: '1999',
@@ -128,15 +94,64 @@ var array = {
         },
     CorrectAnswer: 1
     },
+
+    Q7: {
+        Question: "What was the first game that Miyamoto directed?",
+        Answers: {
+            Ans0: 'Donkey Kong',
+            Ans1: 'Mario Brothers',
+            Ans2: 'Legend of Zelda',
+            Ans3: 'Game and Watch',
+        },
+    CorrectAnswer: 0,
+    },
+    
+    Q8: {
+        Question: "Who was the female that was kidnapped in the original Donkey Kong?",
+        Answers: {
+            Ans0: 'Daisy',
+            Ans1: 'Peach',
+            Ans2: 'Dixie',
+            Ans3: 'Pauline',
+        },
+    CorrectAnswer: 3,
+    },
+
+    Q9: {
+        Question: "What was the cancelled console that Nintendo and Sony collaborated on?",
+        Answers: {
+            Ans0: 'Sony CDI',
+            Ans1: 'Satellaview',
+            Ans2: 'SNES-CD',
+            Ans3: '64DD',
+        },
+    CorrectAnswer: 2,
+    },
+
+    Q10: {
+        Question: "What Nintendo franchise is believed to have been inspired by Alien?",
+        Answers: {
+            Ans0: 'Metroid',
+            Ans1: 'Kid Icuras',
+            Ans2: 'Pikmin',
+            Ans3: 'Mother',
+        },
+    CorrectAnswer: 0,
+    },
+    
     
 }
 
-// setting the count for hte array that will choose the questions
+// setting global variables
+var questionArray = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9','Q10']
+var score = 0;
 var count = 0;
-var timer = 30;
+var timer = 31;
 var interval;
-
+var result = null
 setTimeout(thirtySeconds, 1000*30);
+var nextQuestion = questionArray[count]
+var selectedQuestion = questionValues[nextQuestion]
 
 // setting the timer
 function run() {
@@ -151,8 +166,21 @@ $("#timer").html("<h1>" + timer + "</h1>")
 
 if (timer === 0) {
     stop();
-    alert("Too Late")
-}
+    $("#questions").empty()
+    count++
+
+    let answerBox = $("<div id = Answer>")
+    let outcome = $("<h2 id = outcome class = text-center>").text("Incorrect")
+    // let ansPic = $("<img id = ansPic class = mx-auto>").html("<img src =" )
+    let ansDesc = $("<p id = ansDesc class = text-center>").text(selectedQuestion.RevealAns)
+    let nextBtn = $("<button id = nextBtn class = btn btn-light text-danger text-center>").text("Next")
+
+    $(outcome).appendTo(answerBox)
+    $(ansDesc).appendTo(answerBox)
+    $(nextBtn).appendTo(answerBox)
+
+    $("#questions").append(answerBox)
+    }
 }
 
 // clears interval if time runs out
@@ -161,59 +189,110 @@ function stop() {
     timer = 30
 }
 
-// make array to choose different questions
+function populateQuestion() {
+    let nextQuestion = questionArray[count]
+    let selectedQuestion = questionValues[nextQuestion]
+    console.log(nextQuestion)
+    console.log(selectedQuestion)
 
-var questionArray = ['Question1', 'Question2']
+    let questionBox = $("<div id = 'testQuestions'>")
+    let question = $("<h2 class = 'question'>").text(selectedQuestion.Question)  
+    let ans0 = $("<button class = 'list-group-item list-group-item-action mb-3 listofAnswers' type = 0>").text(selectedQuestion.Answers.Ans0)
+    let ans1 = $("<button class = 'list-group-item list-group-item-action mb-3 listofAnswers' type = 1>").text(selectedQuestion.Answers.Ans1)
+    let ans2 = $("<button class = 'list-group-item list-group-item-action mb-3 listofAnswers' type = 2>").text(selectedQuestion.Answers.Ans2)
+    let ans3 = $("<button class = 'list-group-item list-group-item-action mb-3 listofAnswers' type = 3>").text(selectedQuestion.Answers.Ans3)
 
+    $(question).appendTo($(questionBox))
+    $(ans0).appendTo($(questionBox))
+    $(ans1).appendTo($(questionBox))
+    $(ans2).appendTo($(questionBox))
+    $(ans3).appendTo($(questionBox))
+
+    $("#questions").append(questionBox)
+}
+
+
+
+$(document).on("click", "button.listofAnswers", function() {
+    
+    answerVal = parseInt($(this).attr('type'))
+
+    displayAnswer()
+
+    // if (answerVal === selectedQuestion.CorrectAnswer) {
+    //     stop()
+    //     $("#questions").empty()
+    //     count++
+    //     score++
+
+    //     let answerBox = $("<div id = Answer>")
+    //     let outcome = $("<h2 id = outcome class = text-center>").text("Correct!")
+    //     // let ansPic = $("<img id = ansPic class = mx-auto>").html("<img src =" )
+    //     let ansDesc = $("<p id = ansDesc class = text-center>").text(selectedQuestion.RevealAns)
+    //     let nextBtn = $("<button id = nextBtn class = btn btn-light text-danger text-center>").text("Next")
+
+    //     $(outcome).appendTo(answerBox)
+    //     $(ansDesc).appendTo(answerBox)
+    //     $(nextBtn).appendTo(answerBox)
+
+    //     $("#questions").append(answerBox)
+    // }
+
+    // else {
+    //     stop()
+    //     $("#questions").empty()
+    //     count++
+
+    //     let answerBox = $("<div id = Answer>")
+    //     let outcome = $("<h2 id = outcome class = text-center>").text("Incorrect")
+    //     // let ansPic = $("<img id = ansPic class = mx-auto>").html("<img src =" )
+    //     let ansDesc = $("<p id = ansDesc class = text-center>").text(selectedQuestion.RevealAns)
+    //     let nextBtn = $("<button id = nextBtn class = btn btn-light text-danger text-center>").text("Next")
+
+    //     $(outcome).appendTo(answerBox)
+    //     $(ansDesc).appendTo(answerBox)
+    //     $(nextBtn).appendTo(answerBox)
+
+    //     $("#questions").append(answerBox)
+    // }
+})
 
 $("#test").on("click", function() {
-
 run()
+populateQuestion()  
+})
 
+function displayAnswer() {
+    stop()
+    $("#questions").empty()
+    count++
 
-
-let listy = $("<div>")
-
-    let question = $("<h2>").text(array.Question1.Question)  
-    let ans0 = $("<button>").text(array.Question1.Answers.Ans0)
-    let ans1 = $("<button>").text(array.Question1.Answers.Ans1)
-    let ans2 = $("<button>").text(array.Question1.Answers.Ans2)
-    let ans3 = $("<button>").text(array.Question1.Answers.Ans3)
-
-    $(question).addClass("h2")
-    $(ans0).addClass("list-group-item list-group-item-action mb-3 listofAnswers").attr('type', 0)
-    $(ans1).addClass("list-group-item list-group-item-action mb-3 listofAnswers").attr('type', 1)
-    $(ans2).addClass("list-group-item list-group-item-action mb-3 listofAnswers").attr('type', 2)
-    $(ans3).addClass("list-group-item list-group-item-action mb-3 listofAnswers").attr('type', 3)
-
-    $(question).appendTo($(listy))
-    $(ans0).appendTo($(listy))
-    $(ans1).appendTo($(listy))
-    $(ans2).appendTo($(listy))
-    $(ans3).appendTo($(listy))
-
-    $("#questions").append(listy)
-
-    $(document).on("click", "button.listofAnswers", function() {
-    answerVal = parseInt($(this).attr('type'))
-    console.log(answerVal)
-    console.log(array.Question1.CorrectAnswer)
-    if (answerVal === array.Question1.CorrectAnswer) {
-        alert("correct")
+    if(answerVal === selectedQuestion.CorrectAnswer){
+        score++
+        var result = "Correct!"
+    }
+    else if(timer === 0){
+        var result = "Time's Up!"
     }
 
     else {
-        alert("wrong")
+        var result = "Incorrect"
     }
+
+    let answerBox = $("<div id = Answer>")
+    let outcome = $("<h2 id = outcome class = text-center>").text(result)
+    // let ansPic = $("<img id = ansPic class = mx-auto>").html("<img src =" )
+    let ansDesc = $("<p id = ansDesc class = text-center>").text(selectedQuestion.RevealAns)
+    let nextBtn = $("<button id = nextBtn class = btn btn-light text-danger text-center>").text("Next")
+
+    $(outcome).appendTo(answerBox)
+    $(ansDesc).appendTo(answerBox)
+    $(nextBtn).appendTo(answerBox)
+
+    $("#questions").append(answerBox)
+
     
-    })
-})
-
-
-
-        
-
-    // Need to find a way to allow user to try to click for an answer.
+}
 
 
 
