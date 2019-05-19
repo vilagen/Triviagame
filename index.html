@@ -11,7 +11,7 @@
 
 <div class = container>
 
-<button type = "button" id = "test" class = "btn btn-primary">Test</button>
+<button type = "button" id = "start" class = "btn btn-primary">Start</button>
 <div id = "timer"></div>
 <div id = "questions"></div>
 <div id = "correct"></div>
@@ -52,11 +52,11 @@ var questionValues = {
     },
 
     Q3: {
-        Question: "What does Nintendo translate to?",
+        Question: "What do most people believe the word 'Nintendo' mean?",
         Answers: {
-            Ans0: 'Seize the New Day',
-            Ans1: 'A Vision with Action',
-            Ans2: 'Mirror of the Soul',
+            Ans0: 'Seize the Day',
+            Ans1: 'To the Wayward Sky',
+            Ans2: 'Heir to the Sun',
             Ans3: 'Leave Luck to the Heavens',
             },
         CorrectAnswer: 3
@@ -146,15 +146,15 @@ var questionValues = {
 var questionArray = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9','Q10']
 var score = 0;
 var count = 0;
-var timer = 31;
+var timer = 5;
 var interval;
+var answerVal = null
 var result = null
-setTimeout(thirtySeconds, 1000*30);
-var nextQuestion = questionArray[count]
-var selectedQuestion = questionValues[nextQuestion]
+
 
 // setting the timer
 function run() {
+setTimeout(thirtySeconds, 1000*5);
 clearInterval(interval);
 interval = setInterval(thirtySeconds, 1000)
 }
@@ -165,35 +165,22 @@ timer--
 $("#timer").html("<h1>" + timer + "</h1>")
 
 if (timer === 0) {
-    stop();
-    $("#questions").empty()
-    count++
-
-    let answerBox = $("<div id = Answer>")
-    let outcome = $("<h2 id = outcome class = text-center>").text("Incorrect")
-    // let ansPic = $("<img id = ansPic class = mx-auto>").html("<img src =" )
-    let ansDesc = $("<p id = ansDesc class = text-center>").text(selectedQuestion.RevealAns)
-    let nextBtn = $("<button id = nextBtn class = btn btn-light text-danger text-center>").text("Next")
-
-    $(outcome).appendTo(answerBox)
-    $(ansDesc).appendTo(answerBox)
-    $(nextBtn).appendTo(answerBox)
-
-    $("#questions").append(answerBox)
+    displayAnswer()
     }
 }
 
 // clears interval if time runs out
 function stop() {
     clearInterval(interval)
-    timer = 30
+    $("#timer").html("<h1>" + timer + "</h1>")
 }
 
 function populateQuestion() {
+    run()
+    answerVal = null
+
     let nextQuestion = questionArray[count]
     let selectedQuestion = questionValues[nextQuestion]
-    console.log(nextQuestion)
-    console.log(selectedQuestion)
 
     let questionBox = $("<div id = 'testQuestions'>")
     let question = $("<h2 class = 'question'>").text(selectedQuestion.Question)  
@@ -211,68 +198,31 @@ function populateQuestion() {
     $("#questions").append(questionBox)
 }
 
-
+// global click command for answers
 
 $(document).on("click", "button.listofAnswers", function() {
-    
     answerVal = parseInt($(this).attr('type'))
-
     displayAnswer()
-
-    // if (answerVal === selectedQuestion.CorrectAnswer) {
-    //     stop()
-    //     $("#questions").empty()
-    //     count++
-    //     score++
-
-    //     let answerBox = $("<div id = Answer>")
-    //     let outcome = $("<h2 id = outcome class = text-center>").text("Correct!")
-    //     // let ansPic = $("<img id = ansPic class = mx-auto>").html("<img src =" )
-    //     let ansDesc = $("<p id = ansDesc class = text-center>").text(selectedQuestion.RevealAns)
-    //     let nextBtn = $("<button id = nextBtn class = btn btn-light text-danger text-center>").text("Next")
-
-    //     $(outcome).appendTo(answerBox)
-    //     $(ansDesc).appendTo(answerBox)
-    //     $(nextBtn).appendTo(answerBox)
-
-    //     $("#questions").append(answerBox)
-    // }
-
-    // else {
-    //     stop()
-    //     $("#questions").empty()
-    //     count++
-
-    //     let answerBox = $("<div id = Answer>")
-    //     let outcome = $("<h2 id = outcome class = text-center>").text("Incorrect")
-    //     // let ansPic = $("<img id = ansPic class = mx-auto>").html("<img src =" )
-    //     let ansDesc = $("<p id = ansDesc class = text-center>").text(selectedQuestion.RevealAns)
-    //     let nextBtn = $("<button id = nextBtn class = btn btn-light text-danger text-center>").text("Next")
-
-    //     $(outcome).appendTo(answerBox)
-    //     $(ansDesc).appendTo(answerBox)
-    //     $(nextBtn).appendTo(answerBox)
-
-    //     $("#questions").append(answerBox)
-    // }
 })
 
-$("#test").on("click", function() {
-run()
-populateQuestion()  
-})
-
+// display answer based on what user chooses
 function displayAnswer() {
+    var nextQuestion = questionArray[count]
+    var selectedQuestion = questionValues[nextQuestion]
+
     stop()
+    $("#timer").hide()
     $("#questions").empty()
+
     count++
 
-    if(answerVal === selectedQuestion.CorrectAnswer){
-        score++
-        var result = "Correct!"
-    }
-    else if(timer === 0){
+    if(timer === 0){
         var result = "Time's Up!"
+    }
+
+    else if(answerVal === selectedQuestion.CorrectAnswer){
+        score++
+        var result = "Correct"
     }
 
     else {
@@ -289,10 +239,55 @@ function displayAnswer() {
     $(ansDesc).appendTo(answerBox)
     $(nextBtn).appendTo(answerBox)
 
-    $("#questions").append(answerBox)
+    $("#questions").append(answerBox)  
 
-    
 }
+
+// ending and resetting the game
+function gameOver() {
+    result = null
+    count = 0
+    $("#questions").empty()
+    let endofGame = $("<h2 id = final>").text("Thank you for playing. Your final score was " + score + " out of 10!")
+    let startOver =  $("<button id = startOver class = btn btn-light text-danger text.center>").text("Play Again!")
+    
+
+    $("#questions").append(endofGame)
+    $("#questions").append(startOver)
+}
+
+
+$(document).on("click", "#nextBtn", function() {
+    result = null
+    $("#questions").empty()
+    timer = 5
+    $("#timer").html("<h1>" + timer + "</h1>")
+
+    if(count === questionArray.length) {
+        gameOver()
+    }
+
+    else{
+    populateQuestion()
+    }
+})
+
+
+$(document).on("click", "#startOver", function(){
+    score = 0
+    timer = 30
+    $("#questions").empty()
+    $("#start").show()
+})
+
+// start and run game.
+$("#start").on("click", function() {
+$("#timer").html("<h1>" + timer + "</h1>")
+$("#start").hide()
+populateQuestion()
+})
+
+
 
 
 
