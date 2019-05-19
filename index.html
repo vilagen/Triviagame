@@ -38,7 +38,7 @@ var questionValues = {
             Ans3: '1968',
             },
         CorrectAnswer: 0,
-        RevealAns: "Nintendo was founded in 1889.",
+        RevealAns: "Nintendo was founded in 1889; almst a century before making the Famicon",
         Image: "<img src= 'assets/images/nintendo1889.jpg'>"
     },
 
@@ -48,7 +48,7 @@ var questionValues = {
             Ans0: 'Nintendo Entertainment System',
             Ans1: 'Ultra Hand',
             Ans2: 'Playing Cards',
-            Ans3: 'Love Tester'
+            Ans3: 'Love Tester',
             },
         CorrectAnswer: 2,
         RevealAns: "Nintendo's first products were playing cards.",
@@ -56,15 +56,15 @@ var questionValues = {
     },
 
     Q3: {
-        Question: "What do most people believe the word 'Nintendo' mean?",
+        Question: "What do many consider 'Nintendo' to translate to in English?",
         Answers: {
             Ans0: 'Seize the Day',
             Ans1: 'To the Wayward Sky',
-            Ans2: 'Heir to the Sun',
+            Ans2: 'Heir of the Sun',
             Ans3: 'Leave Luck to Heaven',
             },
         CorrectAnswer: 3,
-        RevealAns: "Nintendo was founded in 1889.",
+        RevealAns: "It is widely considered to mean 'Leave Luck to Heaven'.",
         Image: "<img src= 'assets/images/leaveluck.jpg'>"
     },
 
@@ -77,12 +77,12 @@ var questionValues = {
             Ans3: 'Famicon',
             },
         CorrectAnswer: 2,
-        RevealAns: "Nintendo was founded in 1889.",
-        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
+        RevealAns: "Game and Watch was Nitendo's first portable gaming device. Do any of the designs look a little familiar?",
+        Image: "<img src= 'assets/images/gameandwatch.jpg'>",
     },
 
     Q5: {
-        Question: "What series did Miyamoto not direactly create?",
+        Question: "What series did Shigeru Miyamoto not direactly create or inspire?",
         Answers: {
             Ans0: 'Donkey Kong',
             Ans1: 'Pokemon',
@@ -90,12 +90,12 @@ var questionValues = {
             Ans3: 'Pikmin',
         },
         CorrectAnswer: 1,
-        RevealAns: "Nintendo was founded in 1889.",
-        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
+        RevealAns: "Pokemon, one of Nintendo's most popular franchises, was created and still developed by Game Freak.",
+        Image: "<img src= 'assets/images/game-freak.jpg'>",
     },
 
     Q6: {
-        Question: "Counting all iterations, including the Gameboy Color, when did production of the Game Boy end?",
+        Question: "Counting all iterations, including the Gameboy Color (though not the Advance), when did production of the original Gameboy end?",
         Answers: {
             Ans0: '1999',
             Ans1: '2003',
@@ -103,8 +103,8 @@ var questionValues = {
             Ans3: '1998',
         },
         CorrectAnswer: 1,
-        RevealAns: "Nintendo was founded in 1889.",
-        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
+        RevealAns: "The Gameboy line was in production from 1989 till 2003. It was succeeded by the Gameboy Advance.",
+        Image: "<img src= 'assets/images/gameboy.jpg'>",
     },
 
     Q7: {
@@ -116,8 +116,8 @@ var questionValues = {
             Ans3: 'Game and Watch',
         },
         CorrectAnswer: 0,
-        RevealAns: "Nintendo was founded in 1889.",
-        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
+        RevealAns: "Donkey Kong was Miyamoto's first game he directed. He is credited with creating other popular franchises, like Zelda and Mario.",
+        Image: "<img src= 'assets/images/miyamoto.jpg'>",
     },
     
     Q8: {
@@ -129,8 +129,8 @@ var questionValues = {
             Ans3: 'Pauline',
         },
         CorrectAnswer: 3,
-        RevealAns: "Nintendo was founded in 1889.",
-        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
+        RevealAns: "Pauline was Nintendo's original damsel in distress. As of Mario Odyssey, she is the mayor of New Donk City",
+        Image: "<img src= 'assets/images/pauline.png'>",
     },
 
     Q9: {
@@ -142,8 +142,8 @@ var questionValues = {
             Ans3: '64DD',
         },
         CorrectAnswer: 2,
-        RevealAns: "Nintendo was founded in 1889.",
-        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
+        RevealAns: "Though their partnership was very brief, it's widely believed it helped Sony move into the videogame industry..",
+        Image: "<img src= 'assets/images/SNESCD.jpg'>",
     },
 
     Q10: {
@@ -155,8 +155,8 @@ var questionValues = {
             Ans3: 'Mother',
         },
         CorrectAnswer: 0,
-        RevealAns: "Nintendo was founded in 1889.",
-        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
+        RevealAns: "Some similarities include a female lead, alien monsters that latch to faces, characters with the name Mother, and even a villain named 'Ridley'.",
+        Image: "<img src= 'assets/images/samus.png'>",
     },
     
     
@@ -166,7 +166,7 @@ var questionValues = {
 var questionArray = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9','Q10']
 var score = 0;
 var count = 0;
-var timer = 5;
+var timer = 30;
 var interval;
 var answerVal = null
 var result = null
@@ -282,7 +282,7 @@ function gameOver() {
 
 $(document).on("click", "#nextBtn", function() {
     result = null
-    timer = 5
+    timer = 30
     $("#questions").empty()
     
     if(count === questionArray.length) {
@@ -297,7 +297,7 @@ $(document).on("click", "#nextBtn", function() {
 
 $(document).on("click", "#startOver", function(){
     score = 0
-    timer = 5
+    timer = 30
     $("#questions").empty()
     $("#start").show()
 })
