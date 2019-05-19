@@ -14,7 +14,6 @@
 <button type = "button" id = "start" class = "btn btn-primary">Start</button>
 <div id = "timer"></div>
 <div id = "questions"></div>
-<div id = "correct"></div>
 <div id = "answers"></div>
 
 
@@ -27,6 +26,8 @@
 
 // Need to create a function to pull questions and answers.
 
+var nintendo1889 = "assets/images/nintendo1889.jpg"
+
 var questionValues = {
     Q1: {
         Question: "What Year was Nintendo founded?",
@@ -37,7 +38,8 @@ var questionValues = {
             Ans3: '1968',
             },
         CorrectAnswer: 0,
-        RevealAns: "Nintendo was founded in 1889."
+        RevealAns: "Nintendo was founded in 1889.",
+        Image: "<img src= 'assets/images/nintendo1889.jpg'>"
     },
 
     Q2: {
@@ -48,7 +50,9 @@ var questionValues = {
             Ans2: 'Playing Cards',
             Ans3: 'Love Tester'
             },
-        CorrectAnswer: 2
+        CorrectAnswer: 2,
+        RevealAns: "Nintendo's first products were playing cards.",
+        Image: "<img src= 'assets/images/nintendocard.jpg'>",
     },
 
     Q3: {
@@ -57,9 +61,11 @@ var questionValues = {
             Ans0: 'Seize the Day',
             Ans1: 'To the Wayward Sky',
             Ans2: 'Heir to the Sun',
-            Ans3: 'Leave Luck to the Heavens',
+            Ans3: 'Leave Luck to Heaven',
             },
-        CorrectAnswer: 3
+        CorrectAnswer: 3,
+        RevealAns: "Nintendo was founded in 1889.",
+        Image: "<img src= 'assets/images/leaveluck.jpg'>"
     },
 
     Q4: {
@@ -70,7 +76,9 @@ var questionValues = {
             Ans2: 'Game and Watch',
             Ans3: 'Famicon',
             },
-        CorrectAnswer: 2
+        CorrectAnswer: 2,
+        RevealAns: "Nintendo was founded in 1889.",
+        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
     },
 
     Q5: {
@@ -81,7 +89,9 @@ var questionValues = {
             Ans2: 'Mario',
             Ans3: 'Pikmin',
         },
-    CorrectAnswer: 1
+        CorrectAnswer: 1,
+        RevealAns: "Nintendo was founded in 1889.",
+        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
     },
 
     Q6: {
@@ -92,7 +102,9 @@ var questionValues = {
             Ans2: '2000',
             Ans3: '1998',
         },
-    CorrectAnswer: 1
+        CorrectAnswer: 1,
+        RevealAns: "Nintendo was founded in 1889.",
+        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
     },
 
     Q7: {
@@ -103,7 +115,9 @@ var questionValues = {
             Ans2: 'Legend of Zelda',
             Ans3: 'Game and Watch',
         },
-    CorrectAnswer: 0,
+        CorrectAnswer: 0,
+        RevealAns: "Nintendo was founded in 1889.",
+        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
     },
     
     Q8: {
@@ -114,7 +128,9 @@ var questionValues = {
             Ans2: 'Dixie',
             Ans3: 'Pauline',
         },
-    CorrectAnswer: 3,
+        CorrectAnswer: 3,
+        RevealAns: "Nintendo was founded in 1889.",
+        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
     },
 
     Q9: {
@@ -125,7 +141,9 @@ var questionValues = {
             Ans2: 'SNES-CD',
             Ans3: '64DD',
         },
-    CorrectAnswer: 2,
+        CorrectAnswer: 2,
+        RevealAns: "Nintendo was founded in 1889.",
+        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
     },
 
     Q10: {
@@ -136,7 +154,9 @@ var questionValues = {
             Ans2: 'Pikmin',
             Ans3: 'Mother',
         },
-    CorrectAnswer: 0,
+        CorrectAnswer: 0,
+        RevealAns: "Nintendo was founded in 1889.",
+        Image: "<img src= 'assets/images/nintendo1889.jpg'>",
     },
     
     
@@ -151,12 +171,15 @@ var interval;
 var answerVal = null
 var result = null
 
-
 // setting the timer
+
+
+
+
 function run() {
-setTimeout(thirtySeconds, 1000*5);
-clearInterval(interval);
-interval = setInterval(thirtySeconds, 1000)
+$("#timer").html("<h1>" + timer + "</h1>")
+clearInterval(interval)
+interval = setInterval(thirtySeconds,1000)
 }
 
 // setting the function to display timer
@@ -176,8 +199,9 @@ function stop() {
 }
 
 function populateQuestion() {
-    run()
     answerVal = null
+    run()
+    $("#timer").show()
 
     let nextQuestion = questionArray[count]
     let selectedQuestion = questionValues[nextQuestion]
@@ -231,16 +255,16 @@ function displayAnswer() {
 
     let answerBox = $("<div id = Answer>")
     let outcome = $("<h2 id = outcome class = text-center>").text(result)
-    // let ansPic = $("<img id = ansPic class = mx-auto>").html("<img src =" )
     let ansDesc = $("<p id = ansDesc class = text-center>").text(selectedQuestion.RevealAns)
+    let ansPic = $("<div text-center>").html(selectedQuestion.Image)
     let nextBtn = $("<button id = nextBtn class = btn btn-light text-danger text-center>").text("Next")
 
     $(outcome).appendTo(answerBox)
     $(ansDesc).appendTo(answerBox)
+    $(ansPic).appendTo(answerBox)
     $(nextBtn).appendTo(answerBox)
 
     $("#questions").append(answerBox)  
-
 }
 
 // ending and resetting the game
@@ -251,7 +275,6 @@ function gameOver() {
     let endofGame = $("<h2 id = final>").text("Thank you for playing. Your final score was " + score + " out of 10!")
     let startOver =  $("<button id = startOver class = btn btn-light text-danger text.center>").text("Play Again!")
     
-
     $("#questions").append(endofGame)
     $("#questions").append(startOver)
 }
@@ -259,23 +282,22 @@ function gameOver() {
 
 $(document).on("click", "#nextBtn", function() {
     result = null
-    $("#questions").empty()
     timer = 5
-    $("#timer").html("<h1>" + timer + "</h1>")
-
+    $("#questions").empty()
+    
     if(count === questionArray.length) {
         gameOver()
     }
 
     else{
-    populateQuestion()
+        populateQuestion()
     }
 })
 
 
 $(document).on("click", "#startOver", function(){
     score = 0
-    timer = 30
+    timer = 5
     $("#questions").empty()
     $("#start").show()
 })
@@ -285,6 +307,7 @@ $("#start").on("click", function() {
 $("#timer").html("<h1>" + timer + "</h1>")
 $("#start").hide()
 populateQuestion()
+
 })
 
 
