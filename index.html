@@ -7,14 +7,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Document</title>
 </head>
-<body>
+<body class = bg-secondary>
 
-<div class = container>
+<div class = "container">
 
-<button type = "button" id = "start" class = "btn btn-primary">Start</button>
-<div id = "timer"></div>
-<div id = "questions"></div>
+<div class = "row">
+<div class = "col-sm-2"></div>
+<div class = "col-sm-8 bg-danger">
+<img id = "Nintendo" class = "mx-auto d-block" src = "assets/images/nintendo2.png" width="75%" height="auto">
+</div>
+<div class = "col-sm-2"></div>
+</div>
+
+<div class = "row">
+<div class = "col-sm-3"></div>
+<div class = "col-sm-6">
+<div class = "text-center">
+<button id = "start" class = "btn btn-dark btn-outline-danger btn-lg">Start</button>
+<div id = "timer" class = "text-center"></div>
+</div>
+<div id = "questions" class = "text-center"></div>
 <div id = "answers"></div>
+</div>
+<div class = "col-sm-3"></div>
+</div>
 
 
 </div>
@@ -39,7 +55,7 @@ var questionValues = {
             Ans3: '1968',
             },
         CorrectAnswer: 0,
-        RevealAns: "Nintendo was founded in 1889; almst a century before making the Famicon",
+        RevealAns: "Nintendo was founded in 1889; almost a century before making the Famicon",
         Image: "<img src= 'assets/images/nintendo1889.jpg' width = 50% height = auto>"
     },
 
@@ -79,7 +95,7 @@ var questionValues = {
             },
         CorrectAnswer: 2,
         RevealAns: "Game and Watch was Nitendo's first portable gaming device. Do any of the designs look a little familiar?",
-        Image: "<img src= 'assets/images/gameandwatch.jpg' width = 50% height = auto>",
+        Image: "<img src= 'assets/images/gameandwatch.jpg' width = 60% height = auto>",
     },
 
     Q5: {
@@ -92,7 +108,7 @@ var questionValues = {
         },
         CorrectAnswer: 1,
         RevealAns: "Pokemon, one of Nintendo's most popular franchises, was created and still developed by Game Freak.",
-        Image: "<img src= 'assets/images/game-freak.jpg'>",
+        Image: "<img src= 'assets/images/game-freak.jpg' width = 75% height = auto>",
     },
 
     Q6: {
@@ -203,12 +219,12 @@ function populateQuestion() {
     let nextQuestion = questionArray[count]
     let selectedQuestion = questionValues[nextQuestion]
 
-    let questionBox = $("<div id = 'testQuestions'>")
+    let questionBox = $("<div id = 'testQuestions' class = text-center>")
     let question = $("<h2 class = 'question'>").text(selectedQuestion.Question)  
-    let ans0 = $("<button class = 'list-group-item list-group-item-action mb-3 listofAnswers' type = 0>").text(selectedQuestion.Answers.Ans0)
-    let ans1 = $("<button class = 'list-group-item list-group-item-action mb-3 listofAnswers' type = 1>").text(selectedQuestion.Answers.Ans1)
-    let ans2 = $("<button class = 'list-group-item list-group-item-action mb-3 listofAnswers' type = 2>").text(selectedQuestion.Answers.Ans2)
-    let ans3 = $("<button class = 'list-group-item list-group-item-action mb-3 listofAnswers' type = 3>").text(selectedQuestion.Answers.Ans3)
+    let ans0 = $("<button class = 'list-group-item list-group-item-action text-center mb-3 listofAnswers' type = 0>").text(selectedQuestion.Answers.Ans0)
+    let ans1 = $("<button class = 'list-group-item list-group-item-action text-center mb-3 listofAnswers' type = 1>").text(selectedQuestion.Answers.Ans1)
+    let ans2 = $("<button class = 'list-group-item list-group-item-action text-center mb-3 listofAnswers' type = 2>").text(selectedQuestion.Answers.Ans2)
+    let ans3 = $("<button class = 'list-group-item list-group-item-action text-center mb-3 listofAnswers' type = 3>").text(selectedQuestion.Answers.Ans3)
 
     $(question).appendTo($(questionBox))
     $(ans0).appendTo($(questionBox))
@@ -250,11 +266,11 @@ function displayAnswer() {
         var result = "Incorrect"
     }
 
-    let answerBox = $("<div id = Answer>")
+    let answerBox = $("<div id = Answer class = text-center>")
     let outcome = $("<h2 id = outcome class = text-center>").text(result)
     let ansDesc = $("<p id = ansDesc class = text-center>").text(selectedQuestion.RevealAns)
-    let ansPic = $("<div text-center>").html(selectedQuestion.Image)
-    let nextBtn = $("<button id = nextBtn class = btn btn-light text-danger text-center>").text("Next")
+    let ansPic = $("<div class = text-center>").html(selectedQuestion.Image)
+    let nextBtn = $("<button id = nextBtn type = button class = btn btn-secondary btn-outline-primary>").text("Next")
 
     $(outcome).appendTo(answerBox)
     $(ansDesc).appendTo(answerBox)
@@ -285,7 +301,7 @@ function gameOver() {
     count = 0
     $("#questions").empty()
     let endofGame = $("<h2 id = final>").text("Thank you for playing. Your final score was " + score + " out of " + questionArray.length + "!")
-    let startOver =  $("<button id = startOver class = btn btn-light text-danger text.center>").text("Play Again!")
+    let startOver =  $("<button id = startOver class = btn btn-secondary btn-outline-primary text-center>").text("Play Again!")
     
     $("#questions").append(endofGame)
     $("#questions").append(startOver)
