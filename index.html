@@ -25,8 +25,9 @@
 <script type="text/javascript">
 
 // Need to create a function to pull questions and answers.
-
-var nintendo1889 = "assets/images/nintendo1889.jpg"
+// With the way it is coded, all someone would have to do is just add
+// the key and values in this object, the update another Q# in the arry
+// for that question to be part of the quiz.
 
 var questionValues = {
     Q1: {
@@ -39,7 +40,7 @@ var questionValues = {
             },
         CorrectAnswer: 0,
         RevealAns: "Nintendo was founded in 1889; almst a century before making the Famicon",
-        Image: "<img src= 'assets/images/nintendo1889.jpg'>"
+        Image: "<img src= 'assets/images/nintendo1889.jpg' width = 50% height = auto>"
     },
 
     Q2: {
@@ -78,7 +79,7 @@ var questionValues = {
             },
         CorrectAnswer: 2,
         RevealAns: "Game and Watch was Nitendo's first portable gaming device. Do any of the designs look a little familiar?",
-        Image: "<img src= 'assets/images/gameandwatch.jpg'>",
+        Image: "<img src= 'assets/images/gameandwatch.jpg' width = 50% height = auto>",
     },
 
     Q5: {
@@ -129,8 +130,8 @@ var questionValues = {
             Ans3: 'Pauline',
         },
         CorrectAnswer: 3,
-        RevealAns: "Pauline was Nintendo's original damsel in distress. As of Mario Odyssey, she is the mayor of New Donk City",
-        Image: "<img src= 'assets/images/pauline.png'>",
+        RevealAns: "Pauline was Nintendo's original damsel in distress. As of Mario Odyssey, she is the mayor of New Donk City.",
+        Image: "<img src= 'assets/images/pauline.png' height=333px width=160px>",
     },
 
     Q9: {
@@ -142,7 +143,7 @@ var questionValues = {
             Ans3: '64DD',
         },
         CorrectAnswer: 2,
-        RevealAns: "Though their partnership was very brief, it's widely believed it helped Sony move into the videogame industry..",
+        RevealAns: "Though their partnership was very brief, it's widely believed it helped Sony move into the videogame industry.",
         Image: "<img src= 'assets/images/SNESCD.jpg'>",
     },
 
@@ -155,8 +156,8 @@ var questionValues = {
             Ans3: 'Mother',
         },
         CorrectAnswer: 0,
-        RevealAns: "Some similarities include a female lead, alien monsters that latch to faces, characters with the name Mother, and even a villain named 'Ridley'.",
-        Image: "<img src= 'assets/images/samus.png'>",
+        RevealAns: "Some similarities include a female lead, alien monsters that latch on to faces, characters with the name Mother, and even a villain named 'Ridley'.",
+        Image: "<img src= 'assets/images/samus.png' height = 387px width = 227px>",
     },
     
     
@@ -172,10 +173,6 @@ var answerVal = null
 var result = null
 
 // setting the timer
-
-
-
-
 function run() {
 $("#timer").html("<h1>" + timer + "</h1>")
 clearInterval(interval)
@@ -267,19 +264,7 @@ function displayAnswer() {
     $("#questions").append(answerBox)  
 }
 
-// ending and resetting the game
-function gameOver() {
-    result = null
-    count = 0
-    $("#questions").empty()
-    let endofGame = $("<h2 id = final>").text("Thank you for playing. Your final score was " + score + " out of 10!")
-    let startOver =  $("<button id = startOver class = btn btn-light text-danger text.center>").text("Play Again!")
-    
-    $("#questions").append(endofGame)
-    $("#questions").append(startOver)
-}
-
-
+// button to go to next question
 $(document).on("click", "#nextBtn", function() {
     result = null
     timer = 30
@@ -294,7 +279,19 @@ $(document).on("click", "#nextBtn", function() {
     }
 })
 
+// last page with results, ending the quiz
+function gameOver() {
+    result = null
+    count = 0
+    $("#questions").empty()
+    let endofGame = $("<h2 id = final>").text("Thank you for playing. Your final score was " + score + " out of " + questionArray.length + "!")
+    let startOver =  $("<button id = startOver class = btn btn-light text-danger text.center>").text("Play Again!")
+    
+    $("#questions").append(endofGame)
+    $("#questions").append(startOver)
+}
 
+// resets the quiz
 $(document).on("click", "#startOver", function(){
     score = 0
     timer = 30
@@ -309,11 +306,6 @@ $("#start").hide()
 populateQuestion()
 
 })
-
-
-
-
-
 
 </script>
 </html>
