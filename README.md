@@ -1,5 +1,11 @@
 # Triviagame
 
+This page was made to help understand how to manipulate the DOM batter using jQuery and Javascript. The goal of this activity was to also 
+to include a timer while a person does a trivia game. The code is made to add up the score when done, and nearly all elements were
+made in a javascript file instead of directly through HTML.
+
+## https://vilagen.github.io/Triviagame/
+
 Thank you for visiting my Nintendo Trivia page.
 This trivia is dedicated to some Nintendo facts that
 most fans may already know. Perhaps you'll learn a 
